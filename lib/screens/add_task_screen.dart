@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:todoey_flutter/widgets/task_list.dart';
 import 'package:provider/provider.dart';
-import 'package:todoey_flutter/models/task.dart';
 import 'package:todoey_flutter/models/task_data.dart';
 
 class AddTaskScreen extends StatelessWidget {
+  const AddTaskScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     String? nameTask;
     return Column(
       children: [
-        Text(
+        const Text(
           'Add Task',
           style: TextStyle(
             fontSize: 50.0,
@@ -21,7 +21,7 @@ class AddTaskScreen extends StatelessWidget {
         TextField(
           autofocus: true,
           textAlign: TextAlign.center,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             filled: true,
             hintText: 'Add new task',
           ),
@@ -40,12 +40,12 @@ class AddTaskScreen extends StatelessWidget {
             // and must call it by method add() contains notifyListeners();which update all listeners -> cant just say .name=newTask
             Navigator.pop(context);
           },
-          child: Text(
+          child: const Text(
             'Add',
             style: TextStyle(),
           ),
           style: TextButton.styleFrom(
-            //Chane textbutton Colors
+            //Chane textButton Colors
             primary: Colors.white,
             backgroundColor: Colors.lightBlueAccent,
           ),

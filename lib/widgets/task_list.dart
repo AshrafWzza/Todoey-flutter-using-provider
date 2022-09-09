@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'task_tile.dart';
-import 'package:todoey_flutter/models/task.dart';
 import 'package:provider/provider.dart';
 import 'package:todoey_flutter/models/task_data.dart';
 
 class TaskList extends StatelessWidget {
+  const TaskList({Key? key}) : super(key: key);
+
   //use provider instead passing values
   // List<Task>? tasks;
   // TaskList({required this.tasks});
@@ -19,28 +19,28 @@ class TaskList extends StatelessWidget {
     //user ListView.builder unKnown number of ListTile or Infinte numbers
     return ListView.builder(
       itemBuilder: (BuildContext context, int index) {
-        final CurrentTask = Provider.of<TaskData>(context).tasks[index];
+        final currentTask = Provider.of<TaskData>(context).tasks[index];
         return ListTile(
           onLongPress: () {
             Provider.of<TaskData>(context, listen: false)
-                .deleteTask(CurrentTask);
+                .deleteTask(currentTask);
           },
           //title: Text((context.read<Task>().tasks[index].name!)),
           title: Text(
-            CurrentTask.name!,
+            currentTask.name!,
             style: TextStyle(
               decoration:
-                  CurrentTask.isDone ? TextDecoration.lineThrough : null,
+                  currentTask.isDone ? TextDecoration.lineThrough : null,
             ),
           ),
           //Error sovled by toString() -->'String Function(dynamic)' can't be assigned to the parameter type 'String'.
           trailing: Checkbox(
-            value: CurrentTask
+            value: currentTask
                 .isDone, //(newText) => context.watch<Task>().tasks[index].isDone,
             onChanged: (bool? value) {
               // Provider.of<TaskData>(context).updateTask(<TaskData>(context).tasks[index]);
               Provider.of<TaskData>(context, listen: false).updateTask(
-                  CurrentTask,
+                  currentTask,
                   value!); // listen: false  Mandatory or will not update list.
               // setState(() {
               //   Provider.of<TaskData>(context).tasks[index].isDone = value!;
