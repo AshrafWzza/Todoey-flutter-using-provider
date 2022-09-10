@@ -10,5 +10,5 @@ A new Flutter project.
 ### ToDo
 - [ ] Dark Mode
 - [ ] Local Database
-- [ ] Listview Separated
+- [x] Listview Separated
 - [ ] Listview Rubber Effect
