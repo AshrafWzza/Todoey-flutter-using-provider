@@ -8,7 +8,7 @@ A new Flutter project.
 - BottomSheet
 - DarkTheme
 ### ToDo
-- [ ] Dark Mode
+- [x] Dark Mode
 - [ ] Local Database
 - [x] Listview Separated
 - [ ] Listview Rubber Effect
