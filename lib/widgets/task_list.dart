@@ -17,9 +17,15 @@ class TaskList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //user ListView.builder unKnown number of ListTile or Infinite numbers
-    return ListView.builder(
+    return ListView.separated(
+      separatorBuilder: (BuildContext context, int index) =>
+          const Divider(height: 0.5),
       itemBuilder: (BuildContext context, int index) {
-        final currentTask = Provider.of<TaskData>(context).tasks[index];
+        if (index == 0 ||
+            index == (Provider.of<TaskData>(context).taskCount) + 1) {
+          return Container();
+        }
+        final currentTask = Provider.of<TaskData>(context).tasks[index - 1];
         return ListTile(
           onLongPress: () {
             Provider.of<TaskData>(context, listen: false)
@@ -53,8 +59,8 @@ class TaskList extends StatelessWidget {
       },
       //mandatory -->Crash App
       //itemCount: context.watch<Task>().tasks.length, //int.parse(().toString()),
-      itemCount: (Provider.of<TaskData>(context)
-          .taskCount), //int.parse(().toString()),
+      itemCount: (Provider.of<TaskData>(context).taskCount) +
+          2, //int.parse(().toString()),
       //Error sovled by toString() -->error: The argument type 'int Function(dynamic)' can't be assigned to the parameter type 'int?'.
     );
   }
