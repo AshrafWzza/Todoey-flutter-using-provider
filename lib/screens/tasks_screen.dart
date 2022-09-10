@@ -7,7 +7,7 @@ import 'package:todoey_flutter/models/task_data.dart';
 class TasksScreen extends StatelessWidget {
   const TasksScreen({Key? key}) : super(key: key);
 
-  //return it to statelesswidget
+  //return it to statelessWidget
 //   @override
 //   State<TasksScreen> createState() => _TasksScreenState();
 // }
@@ -26,7 +26,7 @@ class TasksScreen extends StatelessWidget {
       backgroundColor: Colors.lightBlueAccent,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // //REceiving value from pop()->addtaskscreen
+          // //Receiving value from pop()-> addTaskScreen
           // use provider instead
           // var nameTask = await showModalBottomSheet(
           showModalBottomSheet(
@@ -48,7 +48,7 @@ class TasksScreen extends StatelessWidget {
             ),
           );
           //print(nameTask);
-          // //after recieving value form pop()->addtaskscreen
+          // //after receiving value form pop()-> addTaskScreen
           //use provider instead
           // setState(() {
           //   tasks.add(Task(name: nameTask));

@@ -8,7 +8,7 @@ class TaskList extends StatelessWidget {
   //use provider instead passing values
   // List<Task>? tasks;
   // TaskList({required this.tasks});
-//return it to statelesswidget
+//return it to statelessWidget
 //   @override
 //   State<TaskList> createState() => _TaskListState();
 // }
@@ -16,7 +16,7 @@ class TaskList extends StatelessWidget {
 // class _TaskListState extends State<TaskList> {
   @override
   Widget build(BuildContext context) {
-    //user ListView.builder unKnown number of ListTile or Infinte numbers
+    //user ListView.builder unKnown number of ListTile or Infinite numbers
     return ListView.builder(
       itemBuilder: (BuildContext context, int index) {
         final currentTask = Provider.of<TaskData>(context).tasks[index];
@@ -33,7 +33,7 @@ class TaskList extends StatelessWidget {
                   currentTask.isDone ? TextDecoration.lineThrough : null,
             ),
           ),
-          //Error sovled by toString() -->'String Function(dynamic)' can't be assigned to the parameter type 'String'.
+          //Error soled by toString() -->'String Function(dynamic)' can't be assigned to the parameter type 'String'.
           trailing: Checkbox(
             value: currentTask
                 .isDone, //(newText) => context.watch<Task>().tasks[index].isDone,
