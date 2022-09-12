@@ -1,27 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:todoey_flutter/screens/add_task_screen.dart';
 import 'package:todoey_flutter/widgets/task_list.dart';
 import 'package:provider/provider.dart';
 import 'package:todoey_flutter/models/task_data.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class TasksScreen extends StatelessWidget {
+class TasksScreen extends StatefulWidget {
   const TasksScreen({Key? key}) : super(key: key);
 
+  @override
+  State<TasksScreen> createState() => _TasksScreenState();
+}
+
+class _TasksScreenState extends State<TasksScreen> {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+  late Future<bool> _darkMode;
+
+  Future<void> _toggleDarkMode() async {
+    print('toggle0:$_darkMode');
+    final SharedPreferences prefs = await _prefs;
+    print('toggle1:$_darkMode');
+
+    final bool darkMode = (prefs.getBool('darkMode') ?? false);
+    print('toggle2:$_darkMode');
+
+    setState(() {
+      // !darkMode opposite bool Toggle
+      _darkMode = prefs.setBool('darkMode', !darkMode).then((bool success) {
+        return darkMode;
+      });
+      print('setState:$_darkMode');
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _darkMode = _prefs.then((SharedPreferences prefs) {
+      print('initstate:${prefs.getBool('darkMode')}');
+      return prefs.getBool('darkMode') ?? false;
+    });
+  }
+
   //return it to statelessWidget
-//   @override
-//   State<TasksScreen> createState() => _TasksScreenState();
-// }
-//
-// class _TasksScreenState extends State<TasksScreen> {
-  //create tasks here because it is easy to lifting values state up from belows screen(childrens)
-  // List<Task> tasks = [
-  //   Task(name: 'Buy Milk'),
-  //   Task(name: 'Buy Bread'),
-  //   Task(name: 'Buy Fruits'),
-  //   Task(name: 'Buy Fruits'),
-  // ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,25 +92,30 @@ class TasksScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(children: [
-                    const CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: 30.0,
-                      child: Icon(
-                        Icons.list,
-                        size: 40.0,
-                        color: Colors.lightBlueAccent,
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 30.0,
+                        child: Icon(
+                          Icons.list,
+                          size: 40.0,
+                          color: Colors.lightBlueAccent,
+                        ),
                       ),
-                    ),
-                    Expanded(child: Container()),
-                    IconButton(
-                        icon: const Icon(Icons.lightbulb),
-                        onPressed: () {
-                          Get.isDarkMode
-                              ? Get.changeTheme(ThemeData.light())
-                              : Get.changeTheme(ThemeData.dark());
-                        }),
-                  ]),
+                      Expanded(child: Container()),
+                      IconButton(
+                          icon: const Icon(Icons.lightbulb),
+                          onPressed: () async {
+                            await _toggleDarkMode();
+
+                            await _darkMode
+                                ? Get.changeTheme(ThemeData.dark())
+                                : Get.changeTheme(ThemeData.light());
+                          }),
+                    ],
+                  ),
                   const SizedBox(
                     height: 20.0,
                   ),

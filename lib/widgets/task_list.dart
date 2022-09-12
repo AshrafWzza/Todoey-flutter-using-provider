@@ -8,7 +8,7 @@ class TaskList extends StatelessWidget {
   //use provider instead passing values
   // List<Task>? tasks;
   // TaskList({required this.tasks});
-//return it to statelessWidget
+  //return it to statelessWidget
 //   @override
 //   State<TaskList> createState() => _TaskListState();
 // }
