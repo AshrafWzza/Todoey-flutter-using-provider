@@ -24,14 +24,57 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late Future<bool> _darkMode;
+  Future<void> _updateTheme() async {
+    print('toggle0:$_darkMode');
+    final SharedPreferences prefs = await _prefs;
+    print('toggle1:$_darkMode');
+    print('toggle1:${prefs.getBool('darkMode')}');
+
+    bool darkMode = (prefs.getBool('darkMode') ?? false);
+    print('toggle2:$_darkMode');
+    print('toggle2:${prefs.getBool('darkMode')}');
+
+    // print('setState:$_darkMode');
+    // print('setState:${prefs.getBool('darkMode')}');
+
+    // !darkMode opposite bool Toggle
+    // _darkMode = prefs.setBool('darkMode', !darkMode).then((bool success) {
+    //   return darkMode;
+    // });
+    print('AfterSetState:$_darkMode');
+    print('AfterSetState:${prefs.getBool('darkMode')}');
+
+    // The opposite of Toggle Function
+    darkMode
+        ? Get.changeTheme(ThemeData.dark())
+        : Get.changeTheme(ThemeData.light());
+    print('updattteddd Themmmme');
+  }
+
+/* if (await _darkMode) {
+      Get.changeTheme(ThemeData.dark());
+      print('Statless Changeeeeeee Themmeee');
+      setState(() {});
+    }*/
   @override
-  Widget build(BuildContext context) {
-    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-    late Future<bool> _darkMode;
+  void initState() {
+    super.initState();
     _darkMode = _prefs.then((SharedPreferences prefs) {
-      print('initstateStatless:${prefs.getBool('darkMode')}');
+      print('initstate00:${prefs.getBool('darkMode')}');
       return prefs.getBool('darkMode') ?? false;
     });
+    /*darkMode
+        ? Get.changeTheme(ThemeData.dark())
+        : Get.changeTheme(ThemeData.light());
+    print('Statless Changeeeeeee Themmeee');*/
+    _updateTheme();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+/*
     return FutureBuilder<bool>(
         future: _darkMode,
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
@@ -45,19 +88,22 @@ class _MyAppState extends State<MyApp> {
                 return GetMaterialApp(
                   debugShowCheckedModeBanner: false,
                   darkTheme: ThemeData.dark(),
-                  themeMode: snapshot.data! ? ThemeMode.dark : ThemeMode.light,
+                  // themeMode: snapshot.data! ? ThemeMode.dark : ThemeMode.light,
+                  themeMode: snapshot.data! ? ThemeMode.light : ThemeMode.light,
+                  // LIGHT, LIGHT - Change calculation to function before widget
                   // Theme mode depends on device settings at the beginning
-                  home: const TasksScreen(),
+                  home: TasksScreen(),
                 );
               }
           }
         });
-    /*return GetMaterialApp(
+*/
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       darkTheme: ThemeData.dark(),
-      themeMode: await _darkMode ? ThemeMode.light : ThemeMode.dark,
+      themeMode: ThemeMode.light,
       // Theme mode depends on device settings at the beginning
       home: const TasksScreen(),
-    );*/
+    );
   }
 }

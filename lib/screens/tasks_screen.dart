@@ -22,24 +22,33 @@ class _TasksScreenState extends State<TasksScreen> {
     print('toggle0:$_darkMode');
     final SharedPreferences prefs = await _prefs;
     print('toggle1:$_darkMode');
+    print('toggle1:${prefs.getBool('darkMode')}');
 
-    final bool darkMode = (prefs.getBool('darkMode') ?? false);
+    bool darkMode = (prefs.getBool('darkMode') ?? false);
     print('toggle2:$_darkMode');
+    print('toggle2:${prefs.getBool('darkMode')}');
 
-    setState(() {
-      // !darkMode opposite bool Toggle
-      _darkMode = prefs.setBool('darkMode', !darkMode).then((bool success) {
-        return darkMode;
-      });
-      print('setState:$_darkMode');
+    // print('setState:$_darkMode');
+    // print('setState:${prefs.getBool('darkMode')}');
+
+    // !darkMode opposite bool Toggle
+    _darkMode = prefs.setBool('darkMode', !darkMode).then((bool success) {
+      return darkMode;
     });
+    print('AfterSetState:$_darkMode');
+    print('AfterSetState:${prefs.getBool('darkMode')}');
+
+    darkMode
+        ? Get.changeTheme(ThemeData.light())
+        : Get.changeTheme(ThemeData.dark());
+    print('Changedddd Themmmme');
   }
 
   @override
   void initState() {
     super.initState();
     _darkMode = _prefs.then((SharedPreferences prefs) {
-      print('initstate:${prefs.getBool('darkMode')}');
+      print('initstate0:${prefs.getBool('darkMode')}');
       return prefs.getBool('darkMode') ?? false;
     });
   }
@@ -107,12 +116,13 @@ class _TasksScreenState extends State<TasksScreen> {
                       Expanded(child: Container()),
                       IconButton(
                           icon: const Icon(Icons.lightbulb),
-                          onPressed: () async {
-                            await _toggleDarkMode();
-
-                            await _darkMode
+                          onPressed: () {
+                            _toggleDarkMode();
+                            /*  await _darkMode
                                 ? Get.changeTheme(ThemeData.dark())
                                 : Get.changeTheme(ThemeData.light());
+                            print('Changedddd Themmmme');
+                            setState(() {});*/
                           }),
                     ],
                   ),
