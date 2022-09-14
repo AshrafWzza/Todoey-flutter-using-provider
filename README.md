@@ -12,4 +12,4 @@ A new Flutter project.
 - [ ] Local Database
 - [x] Listview Separated
 - [ ] Listview Rubber Effect
-- [ ] solve: when app starts with lightMode, the toggle works fine but doesn't work when starts with darkMode
+- [x] solve: when app starts with lightMode, the toggle works fine but doesn't work when starts with darkMode
