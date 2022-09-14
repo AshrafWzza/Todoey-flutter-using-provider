@@ -8,8 +8,10 @@ A new Flutter project.
 - BottomSheet
 - DarkTheme
 ### ToDo
-- [x] Dark Mode
 - [ ] Local Database
 - [x] Listview Separated
 - [ ] Listview Rubber Effect
-- [x] solve: when app starts with lightMode, the toggle works fine but doesn't work when starts with darkMode
+- [x] Dark Mode
+   - [x] solve: when app starts with lightMode, the toggle works fine but doesn't work when starts with darkMode
+   - [ ] solve: try another methods like changeNotifier,Provider for _darkMode
+    
