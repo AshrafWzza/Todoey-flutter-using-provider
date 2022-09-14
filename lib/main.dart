@@ -90,7 +90,7 @@ class _MyAppState extends State<MyApp> {
                   darkTheme: ThemeData.dark(),
                   // themeMode: snapshot.data! ? ThemeMode.dark : ThemeMode.light,
                   themeMode: snapshot.data! ? ThemeMode.light : ThemeMode.light,
-                  // LIGHT, LIGHT - Change calculation to function before widget
+                  // LIGHT, LIGHT - Change calculation to updateTheme function
                   // Theme mode depends on device settings at the beginning
                   home: TasksScreen(),
                 );
@@ -101,6 +101,10 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       darkTheme: ThemeData.dark(),
+      // themeMode: xxxxxx ? ThemeMode.dark : ThemeMode.light,
+      // problem: when app starts with lightMode, the toggle works fine but doesn't work when starts with darkMode
+      // solve: make updateTheme Function using Get.changeTheme(ThemeData.dark())
+
       themeMode: ThemeMode.light,
       // Theme mode depends on device settings at the beginning
       home: const TasksScreen(),
